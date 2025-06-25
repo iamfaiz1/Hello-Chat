@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Your existing code goes here
 
-const socket = io("http://localhost:8000");
+// const socket = io("http://localhost:8000"); only works on localhost
+const socket = io(); // works on Render and localhost: automatically detects
 
 // who joined sends to server (socket.io)
 // Keep asking until a valid name is entered
