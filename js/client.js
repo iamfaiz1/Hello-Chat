@@ -1,20 +1,30 @@
+document.addEventListener("DOMContentLoaded", () => {
+  // Your existing code goes here
+
 const socket = io("http://localhost:8000");
 
-
-const form = document.getElementById('form');
-const messageInput = document.querySelector('.sendInput');
-const messageContainer = document.querySelector(".chat");
+// who joined sends to server (socket.io)
+// Keep asking until a valid name is entered
+let name;
+while (!name) {
+name = prompt("Enter your name to join:");
+if (name === null) alert("name cant be null...") ;
+    // Convert cancel to empty so loop continues
+}
+if (name) {
+    socket.emit('new-user-joined', name);
+}
 
 // audio alerts
 const audioSend = new Audio('audio/send.mp3');
 const audioRecieve= new Audio('audio/recieve.mp3');
-const audioJoined = new Audio('audio/joined.mp3');
-const audioLeft= new Audio('audio/left.mp3');
+const audioJoined = new Audio('audio/joined.wav');
+const audioLeft= new Audio('audio/left.wav');
 
-
-// who joined sends to server (socket.io)
-const name = prompt("Enter your name to join");
-socket.emit('new-user-joined', name);
+// get form and input field
+const form = document.getElementById('form');
+const messageInput = document.querySelector('.sendInput');
+const messageContainer = document.querySelector(".chat");
 
 
 // function to append your message to the chat
@@ -62,3 +72,4 @@ form.addEventListener('submit',(e)=>{
     // clear input field after sending
 })
 
+}); // end of DOMContentLoaded
